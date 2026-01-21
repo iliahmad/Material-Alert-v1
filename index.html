@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MATERIAL ALERT - Sistem Pemantauan Harga Material</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icon.png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a5fb4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MaterialAlert">
+    <link rel="apple-touch-icon" href="assets/icon.png">
 </head>
 <body>
     <!-- Header -->
@@ -18,10 +26,18 @@
             </div>
             
             <nav class="nav-menu" id="navMenu">
-                <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="#" class="nav-item" data-page="input"><i class="fas fa-plus-circle"></i> Input Data</a>
-                <a href="#" class="nav-item" data-page="search"><i class="fas fa-search"></i> Cari Material</a>
-                <a href="#" class="nav-item" data-page="results" id="resultsNav" style="display: none;"><i class="fas fa-list-alt"></i> Hasil</a>
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="input">
+                    <i class="fas fa-plus-circle"></i> <span>Input Data</span>
+                </a>
+                <a href="#" class="nav-item" data-page="search">
+                    <i class="fas fa-search"></i> <span>Cari Material</span>
+                </a>
+                <a href="#" class="nav-item" data-page="results" id="resultsNav" style="display: none;">
+                    <i class="fas fa-list-alt"></i> <span>Hasil</span>
+                </a>
             </nav>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -33,7 +49,7 @@
     <!-- Main Content -->
     <main class="container">
         <!-- Dashboard Page -->
-        <div id="dashboard" class="page-content active">
+        <section id="dashboard" class="page-content active">
             <h1 class="page-title">Dashboard MATERIAL ALERT</h1>
             <p class="page-subtitle">Sistem pemantauan harga material bangunan terintegrasi</p>
             
@@ -43,48 +59,14 @@
             </div>
             
             <!-- Stats Cards -->
-            <div class="dashboard-cards">
-                <div class="card">
-                    <div class="card-icon blue">
-                        <i class="fas fa-boxes"></i>
-                    </div>
-                    <h3 class="card-title">Total Material</h3>
-                    <div class="card-value" id="totalMaterials">...</div>
-                    <p class="card-desc">Material terdaftar dalam sistem</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon green">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3 class="card-title">Lokasi</h3>
-                    <div class="card-value" id="totalLocations">...</div>
-                    <p class="card-desc">Kabupaten/Kota terdaftar</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon orange">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="card-title">Update Harga</h3>
-                    <div class="card-value" id="totalPrices">...</div>
-                    <p class="card-desc">Data harga material diperbarui</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon purple">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <h3 class="card-title">Alert Aktif</h3>
-                    <div class="card-value" id="totalAlerts">...</div>
-                    <p class="card-desc">Peringatan harga aktif</p>
-                </div>
+            <div class="dashboard-cards" id="statsCards">
+                <!-- Stats akan diisi oleh JavaScript -->
             </div>
             
             <!-- Recent Materials -->
             <div class="table-container">
                 <h2 class="table-title"><i class="fas fa-history"></i> Material Baru Ditambahkan</h2>
-                <table id="recentMaterials">
+                <table>
                     <thead>
                         <tr>
                             <th>Nama Material</th>
@@ -94,15 +76,15 @@
                             <th>Harga Satuan</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="recentMaterials">
                         <!-- Data akan diisi oleh JavaScript -->
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
         
         <!-- Input Data Page -->
-        <div id="input" class="page-content">
+        <section id="input" class="page-content">
             <h1 class="page-title">Input Data Material</h1>
             
             <div class="alert alert-info">
@@ -110,15 +92,15 @@
                 <div>Masukkan data material baru ke dalam sistem. Pastikan data yang dimasukkan sudah benar.</div>
             </div>
             
-            <!-- Input form -->
-            <div class="input-section">
-                <h2 class="input-title"><i class="fas fa-plus-circle"></i> INPUT DATA MATERIAL</h2>
+            <!-- Input Form -->
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-plus-circle"></i> INPUT DATA MATERIAL</h2>
                 
                 <form id="materialForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="materialName" class="form-label">Nama Material</label>
-                            <input type="text" id="materialName" class="form-input" placeholder="Masukkan nama material" required>
+                            <input type="text" id="materialName" class="form-input" placeholder="Contoh: Semen Portland, Bata Merah" required>
                         </div>
                         
                         <div class="form-group">
@@ -132,8 +114,8 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="unitPrice" class="form-label">Harga Satuan</label>
-                            <input type="number" id="unitPrice" class="form-input" placeholder="Masukkan harga satuan" required min="0" step="100">
+                            <label for="unitPrice" class="form-label">Harga Satuan (Rp)</label>
+                            <input type="number" id="unitPrice" class="form-input" placeholder="Contoh: 65000" required min="0" step="100">
                         </div>
                         
                         <div class="form-group">
@@ -142,12 +124,16 @@
                                 <option value="">Pilih Satuan</option>
                                 <option value="sak">Sak</option>
                                 <option value="buah">Buah</option>
+                                <option value="m³">Meter Kubik (m³)</option>
+                                <option value="m²">Meter Persegi (m²)</option>
+                                <option value="m">Meter (m)</option>
+                                <option value="kg">Kilogram (kg)</option>
                                 <option value="kaleng">Kaleng</option>
                                 <option value="batang">Batang</option>
-                                <option value="meter">Meter</option>
-                                <option value="kg">Kilogram</option>
-                                <option value="liter">Liter</option>
                                 <option value="lembar">Lembar</option>
+                                <option value="roll">Roll</option>
+                                <option value="unit">Unit</option>
+                                <option value="set">Set</option>
                             </select>
                         </div>
                     </div>
@@ -163,9 +149,8 @@
                         
                         <div class="form-group">
                             <label for="city" class="form-label">Kabupaten/Kota</label>
-                            <select id="city" class="form-select" required>
-                                <option value="">Pilih Kabupaten/Kota</option>
-                                <!-- Kota akan diisi oleh JavaScript -->
+                            <select id="city" class="form-select" required disabled>
+                                <option value="">Pilih provinsi terlebih dahulu</option>
                             </select>
                         </div>
                     </div>
@@ -191,20 +176,20 @@
                 </form>
             </div>
             
-            <!-- Success Alert -->
+            <!-- Success Alert (hidden by default) -->
             <div class="alert alert-success" id="saveSuccessAlert" style="display: none;">
                 <i class="fas fa-check-circle"></i>
-                <div id="saveMessage">Data material berhasil disimpan ke dalam sistem MATERIAL ALERT.</div>
+                <div id="saveMessage">Data material berhasil disimpan!</div>
             </div>
-        </div>
+        </section>
         
         <!-- Search Material Page -->
-        <div id="search" class="page-content">
+        <section id="search" class="page-content">
             <h1 class="page-title">Cari Material</h1>
             
-            <!-- Search form -->
-            <div class="search-section">
-                <h2 class="search-title"><i class="fas fa-search"></i> CARI MATERIAL</h2>
+            <!-- Search Form -->
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-search"></i> CARI MATERIAL</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -232,9 +217,8 @@
                     
                     <div class="form-group">
                         <label for="searchCity" class="form-label">Kabupaten/Kota</label>
-                        <select id="searchCity" class="form-select">
-                            <option value="">Semua Kota</option>
-                            <!-- Kota akan diisi oleh JavaScript -->
+                        <select id="searchCity" class="form-select" disabled>
+                            <option value="">Pilih provinsi terlebih dahulu</option>
                         </select>
                     </div>
                 </div>
@@ -251,18 +235,18 @@
                 <i class="fas fa-bell"></i> MATERIAL ALERT
             </div>
             
-            <!-- Search Results -->
+            <!-- Search Results Area -->
             <div class="table-container">
                 <h2 class="table-title"><i class="fas fa-list"></i> Hasil Pencarian</h2>
                 <div id="searchResults">
-                    <p class="page-subtitle">Gunakan form di atas untuk mencari material. Hasil akan ditampilkan di sini.</p>
+                    <p class="page-subtitle">Gunakan form di atas untuk mencari material. Hasil akan ditampilkan di halaman terpisah.</p>
                 </div>
             </div>
-        </div>
+        </section>
         
         <!-- Results Page -->
-        <div id="results" class="page-content">
-            <div id="resultsHeader">
+        <section id="results" class="page-content">
+            <div class="results-header">
                 <button class="btn btn-secondary back-btn" id="backToSearch">
                     <i class="fas fa-arrow-left"></i> Kembali ke Pencarian
                 </button>
@@ -274,7 +258,7 @@
                 <i class="fas fa-bell"></i> MATERIAL ALERT
             </div>
             
-            <!-- Results Info -->
+            <!-- Search Info -->
             <div class="alert alert-info">
                 <i class="fas fa-info-circle"></i>
                 <div>Berikut adalah hasil pencarian material berdasarkan kriteria yang telah ditentukan.</div>
@@ -282,10 +266,10 @@
             
             <!-- Search Criteria -->
             <div class="search-criteria" id="searchCriteria">
-                <!-- Kriteria pencarian akan ditampilkan di sini -->
+                <!-- Kriteria akan diisi oleh JavaScript -->
             </div>
             
-            <!-- Result Cards -->
+            <!-- Results Container -->
             <div id="resultsContainer">
                 <!-- Hasil akan diisi oleh JavaScript -->
             </div>
@@ -295,7 +279,7 @@
                 <i class="fas fa-info-circle"></i>
                 <div>Tidak ada material yang ditemukan dengan kriteria pencarian tersebut.</div>
             </div>
-        </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -303,21 +287,36 @@
         <div class="container footer-container">
             <div class="footer-logo">MATERIAL <span>ALERT</span></div>
             <div class="copyright">
-                &copy; 2023 MATERIAL ALERT. Sistem Pemantauan Harga Material Bangunan.<br>
-                <small>Versi 1.0 - Siap Deploy</small>
+                &copy; 2024 MATERIAL ALERT. Sistem Pemantauan Harga Material Bangunan.<br>
+                <small>Database Lengkap Indonesia - 38 Provinsi & 514 Kota/Kabupaten</small>
             </div>
         </div>
     </footer>
 
-    <!-- Connection Status -->
+    <!-- Database Status -->
     <div class="connection-status online" id="connectionStatus">
         <i class="fas fa-database"></i>
-        <span>Database: <span id="dbStatus">Terhubung</span></span>
+        <span>Database: <span id="dbStatus">Menginisialisasi...</span></span>
     </div>
 
     <!-- JavaScript Files -->
-    <script src="js/database.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/app.js"></script>
+    <script src="database.js"></script>
+    <script src="utils.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
