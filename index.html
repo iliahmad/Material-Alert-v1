@@ -2,629 +2,235 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard MATERIAL ALERT</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset CSS Multi-Platform */
+        /* CSS Reset untuk semua platform */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Font Stack untuk semua platform */
+        
+        /* Font yang kompatibel dengan semua OS */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.5;
-            text-rendering: optimizeLegibility;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
         }
-
-        /* Variables untuk konsistensi */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #059669;
-            --danger: #dc2626;
-            --warning: #d97706;
-            --info: #0891b2;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius: 8px;
-            --radius-lg: 12px;
-        }
-
-        /* Base Styles */
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Container Responsif */
+        
+        /* Container responsif */
         .container {
             width: 100%;
-            max-width: 100%;
-            padding: 16px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
-
-        @media (min-width: 640px) {
-            .container {
-                max-width: 640px;
-                padding: 20px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                max-width: 768px;
-                padding: 24px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 1024px;
-                padding: 28px;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .container {
-                max-width: 1280px;
-                padding: 32px;
-            }
-        }
-
-        /* Header Styles */
+        
+        /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 24px 20px;
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
         }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
+        
         .header h1 {
-            font-size: clamp(24px, 5vw, 36px);
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.025em;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
-
-        .header h2 {
-            font-size: clamp(18px, 3vw, 24px);
-            font-weight: 600;
-            margin-bottom: 12px;
-            opacity: 0.95;
-        }
-
+        
         .header p {
-            font-size: clamp(14px, 2vw, 16px);
             opacity: 0.9;
-            max-width: 600px;
         }
-
-        .alert-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: var(--danger);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: clamp(12px, 2vw, 14px);
-            font-weight: 700;
+        
+        /* Layout utama */
+        .main-content {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 3;
-            animation: pulse 2s infinite;
+            flex-direction: column;
+            gap: 30px;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Dashboard Layout */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            flex: 1;
-        }
-
-        @media (min-width: 1024px) {
-            .dashboard {
-                grid-template-columns: 1fr 380px;
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+            
+            .left-column {
+                flex: 3;
+            }
+            
+            .right-column {
+                flex: 1;
+                min-width: 300px;
             }
         }
-
-        /* Card/Section Styles */
+        
+        /* Card/Section */
         .card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: clamp(16px, 4vw, 24px);
-            box-shadow: var(--shadow);
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .card:hover {
-            box-shadow: var(--shadow-lg);
-        }
-
+        
         .card-title {
-            font-size: clamp(18px, 3vw, 20px);
-            color: var(--primary);
+            font-size: 20px;
+            color: #2c3e50;
             margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--gray-light);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
         }
-
-        .card-title i {
-            font-size: clamp(16px, 2.5vw, 18px);
-        }
-
-        /* Table Styles */
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: var(--radius);
-            border: 1px solid var(--gray-light);
-            margin-top: 16px;
-        }
-
-        .table {
+        
+        /* Tabel material */
+        .material-table {
             width: 100%;
-            min-width: 600px;
             border-collapse: collapse;
+            margin-top: 15px;
         }
-
-        .table thead {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-        }
-
-        .table th {
-            padding: clamp(12px, 2vw, 16px);
+        
+        .material-table th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
             text-align: left;
-            font-weight: 600;
-            font-size: clamp(13px, 2vw, 14px);
-            white-space: nowrap;
         }
-
-        .table td {
-            padding: clamp(12px, 2vw, 16px);
-            border-bottom: 1px solid var(--gray-light);
-            font-size: clamp(13px, 2vw, 14px);
+        
+        .material-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
         }
-
-        .table tr:last-child td {
-            border-bottom: none;
+        
+        .material-table tr:hover {
+            background-color: #f9f9f9;
         }
-
-        .table tbody tr:hover {
-            background-color: rgba(37, 99, 235, 0.05);
-        }
-
-        /* Badge Styles */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1;
-            white-space: nowrap;
-        }
-
-        .badge-semen {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
-        .badge-besi {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-cat {
-            background-color: #fce7f3;
-            color: #9d174d;
-        }
-
-        .badge-kayu {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-
-        .badge-paku {
-            background-color: #f3e8ff;
-            color: #6b21a8;
-        }
-
-        .badge-unit {
-            background-color: #f1f5f9;
-            color: #475569;
-            border: 1px solid #e2e8f0;
-        }
-
-        .price {
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: clamp(14px, 2vw, 16px);
-        }
-
-        /* Form Styles */
+        
+        /* Form input */
         .form-group {
-            margin-bottom: clamp(16px, 3vw, 20px);
+            margin-bottom: 20px;
         }
-
+        
         .form-label {
             display: block;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 8px;
-            color: var(--dark);
-            font-size: clamp(14px, 2vw, 15px);
+            color: #2c3e50;
         }
-
+        
         .form-control {
             width: 100%;
-            padding: clamp(12px, 2vw, 14px);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--radius);
-            font-size: clamp(14px, 2vw, 16px);
-            transition: all 0.2s ease;
-            background-color: var(--white);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
         }
-
-        /* Remove default arrows in number input */
-        .form-control[type="number"]::-webkit-inner-spin-button,
-        .form-control[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .form-control[type="number"] {
-            -moz-appearance: textfield;
-        }
-
+        
         .form-control:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: #3498db;
         }
-
-        select.form-control {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
-        }
-
-        /* Button Styles */
+        
+        /* Tombol */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: clamp(12px, 2vw, 14px) clamp(20px, 3vw, 24px);
+            padding: 12px 20px;
             border: none;
-            border-radius: var(--radius);
-            font-size: clamp(14px, 2vw, 16px);
-            font-weight: 600;
+            border-radius: 6px;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: manipulation;
+            font-weight: bold;
         }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn-block {
-            width: 100%;
-        }
-
+        
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
+            background-color: #2ecc71;
+            color: white;
         }
-
+        
         .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background-color: #27ae60;
         }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--secondary), #047857);
-            color: var(--white);
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
         }
-
-        .btn-success:hover {
-            background: linear-gradient(135deg, #047857, var(--secondary));
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-
+        
         .btn-group {
             display: flex;
-            gap: 12px;
-            margin-top: 24px;
+            gap: 10px;
+            margin-top: 20px;
         }
-
-        .btn-group .btn {
-            flex: 1;
-        }
-
-        /* Search Section */
+        
+        /* Search section */
         .search-section {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: clamp(16px, 4vw, 24px);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        @media (max-width: 1023px) {
-            .search-section {
-                position: static;
-            }
-        }
-
-        .search-step {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed var(--gray-light);
-        }
-
-        .search-step:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            margin-right: 10px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Modal Styles */
+        
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-
-        .modal-content {
-            background: var(--white);
             width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            animation: modalIn 0.3s ease;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
         }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: clamp(18px, 3vw, 20px);
-            font-weight: 600;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 4px;
-            line-height: 1;
-        }
-
-        .modal-body {
-            padding: 24px;
-            max-height: calc(90vh - 80px);
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-height: 80vh;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
-
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .text-muted { color: var(--gray); }
-        .mb-1 { margin-bottom: 4px; }
-        .mb-2 { margin-bottom: 8px; }
-        .mb-3 { margin-bottom: 12px; }
-        .mb-4 { margin-bottom: 16px; }
-        .mb-5 { margin-bottom: 20px; }
-        .mt-1 { margin-top: 4px; }
-        .mt-2 { margin-top: 8px; }
-        .mt-3 { margin-top: 12px; }
-        .mt-4 { margin-top: 16px; }
-        .mt-5 { margin-top: 20px; }
-        .d-flex { display: flex; }
-        .align-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 8px; }
-        .gap-3 { gap: 12px; }
-        .gap-4 { gap: 16px; }
-
+        
         /* Footer */
         .footer {
             text-align: center;
-            padding: 24px 20px;
-            color: var(--gray);
-            font-size: 14px;
-            border-top: 1px solid var(--gray-light);
             margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
         }
-
-        /* Dark Mode Support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --light: #0f172a;
-                --dark: #f1f5f9;
-                --gray: #94a3b8;
-                --gray-light: #334155;
-                --white: #1e293b;
-                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            }
-
-            .badge-unit {
-                background-color: #334155;
-                color: #cbd5e1;
-                border-color: #475569;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .header, .search-section, .btn, .modal {
-                display: none !important;
+        
+        /* Utility classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .mt-3 { margin-top: 15px; }
+        .mb-3 { margin-bottom: 15px; }
+        
+        /* Responsif untuk mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
             }
             
             .card {
-                box-shadow: none;
-                border: 1px solid #ddd;
+                padding: 20px;
             }
             
-            .table {
-                min-width: auto;
-            }
-        }
-
-        /* High Contrast Mode */
-        @media (prefers-contrast: high) {
-            :root {
-                --primary: #0000ff;
-                --primary-dark: #0000cc;
-                --secondary: #008000;
-                --danger: #ff0000;
+            .header {
+                padding: 20px;
             }
             
-            .badge {
-                border: 2px solid currentColor;
+            .material-table {
+                font-size: 14px;
             }
-        }
-
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* iOS Safe Areas */
-        @supports (padding: max(0px)) {
-            .container {
-                padding-left: max(16px, env(safe-area-inset-left));
-                padding-right: max(16px, env(safe-area-inset-right));
-                padding-top: max(16px, env(safe-area-inset-top));
-                padding-bottom: max(16px, env(safe-area-inset-bottom));
+            
+            .material-table th,
+            .material-table td {
+                padding: 8px;
             }
         }
     </style>
@@ -633,257 +239,166 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <div class="header-content">
-                <h1>Dashboard</h1>
-                <h2>MATERIAL ALERT</h2>
-                <p>Sistem pemantauan harga material bangunan terintegrasi</p>
-            </div>
-            <div class="alert-badge">
-                <i class="fas fa-bell"></i>
-                <span>LIVE UPDATE</span>
-            </div>
+            <h1>Dashboard MATERIAL ALERT</h1>
+            <p>Sistem pemantauan harga material bangunan terintegrasi</p>
         </div>
 
-        <div class="dashboard">
-            <!-- LEFT COLUMN: MATERIAL LIST & FORM -->
-            <div>
-                <!-- MATERIAL ALERT SECTION -->
+        <div class="main-content">
+            <!-- LEFT COLUMN -->
+            <div class="left-column">
+                <!-- MATERIAL LIST -->
                 <div class="card">
-                    <h2 class="card-title">
-                        <i class="fas fa-boxes"></i>
-                        MATERIAL ALERT
-                    </h2>
+                    <h2 class="card-title">MATERIAL ALERT</h2>
+                    <h3>Material Baru Ditambahkan</h3>
                     
-                    <h3 class="section-subtitle mb-4">Material Baru Ditambahkan</h3>
-                    
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nama Material</th>
-                                    <th>Kategori</th>
-                                    <th>Satuan</th>
-                                    <th>Provinsi</th>
-                                    <th>Kabupaten/Kota</th>
-                                    <th class="text-right">Harga Satuan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Semen Portland Tipe I</td>
-                                    <td><span class="badge badge-semen">Semen</span></td>
-                                    <td><span class="badge badge-unit">Sak (40kg)</span></td>
-                                    <td>Jawa Barat</td>
-                                    <td>Bandung</td>
-                                    <td class="price text-right">Rp 65.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Besi Beton 10mm</td>
-                                    <td><span class="badge badge-besi">Besi</span></td>
-                                    <td><span class="badge badge-unit">Batang (12m)</span></td>
-                                    <td>Jawa Tengah</td>
-                                    <td>Semarang</td>
-                                    <td class="price text-right">Rp 120.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Cat Tembok Vinilex</td>
-                                    <td><span class="badge badge-cat">Cat</span></td>
-                                    <td><span class="badge badge-unit">Kaleng (5L)</span></td>
-                                    <td>Jawa Timur</td>
-                                    <td>Surabaya</td>
-                                    <td class="price text-right">Rp 85.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Paku Beton 7cm</td>
-                                    <td><span class="badge badge-paku">Paku</span></td>
-                                    <td><span class="badge badge-unit">Kg</span></td>
-                                    <td>DI Yogyakarta</td>
-                                    <td>Yogyakarta</td>
-                                    <td class="price text-right">Rp 28.500</td>
-                                </tr>
-                                <tr>
-                                    <td>Triplek 9mm</td>
-                                    <td><span class="badge badge-kayu">Kayu</span></td>
-                                    <td><span class="badge badge-unit">Lembar</span></td>
-                                    <td>Jawa Barat</td>
-                                    <td>Bogor</td>
-                                    <td class="price text-right">Rp 95.000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="material-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Material</th>
+                                <th>Kategori</th>
+                                <th>Satuan</th>
+                                <th>Provinsi</th>
+                                <th>Kota/Kab</th>
+                                <th>Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Semen Portland Tipe I</td>
+                                <td>Semen</td>
+                                <td>Sak (40kg)</td>
+                                <td>Jawa Barat</td>
+                                <td>Bandung</td>
+                                <td class="text-right">Rp 65.000</td>
+                            </tr>
+                            <tr>
+                                <td>Besi Beton 10mm</td>
+                                <td>Besi</td>
+                                <td>Batang (12m)</td>
+                                <td>Jawa Tengah</td>
+                                <td>Semarang</td>
+                                <td class="text-right">Rp 120.000</td>
+                            </tr>
+                            <tr>
+                                <td>Cat Tembok Vinilex</td>
+                                <td>Cat</td>
+                                <td>Kaleng (5L)</td>
+                                <td>Jawa Timur</td>
+                                <td>Surabaya</td>
+                                <td class="text-right">Rp 85.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <!-- INPUT FORM SECTION -->
+                <!-- INPUT FORM -->
                 <div class="card">
-                    <h2 class="card-title">
-                        <i class="fas fa-plus-circle"></i>
-                        Input Data Material
-                    </h2>
-                    
-                    <div class="mb-4 text-muted">
-                        <i class="fas fa-info-circle"></i>
-                        Masukkan data material baru ke dalam sistem. Pastikan data yang dimasukkan sudah benar.
-                    </div>
+                    <h2 class="card-title">Input Data Material</h2>
+                    <p class="mb-3">Masukkan data material baru ke dalam sistem. Pastikan data yang dimasukkan sudah benar.</p>
                     
                     <form id="materialForm">
-                        <div class="form-row d-flex gap-4 mb-4">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="namaMaterial" class="form-label">
-                                    <i class="fas fa-tag"></i> Nama Material
-                                </label>
-                                <input type="text" id="namaMaterial" class="form-control" placeholder="Contoh: Semen Portland, Besi Beton">
-                                <small class="text-muted mt-2 d-block">Contoh: Semen Portland, Ba</small>
-                            </div>
-
-                            <div class="form-group" style="flex: 1;">
-                                <label for="kategori" class="form-label">
-                                    <i class="fas fa-layer-group"></i> Kategori
-                                </label>
-                                <select id="kategori" class="form-control">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="semen">Semen</option>
-                                    <option value="besi">Besi</option>
-                                    <option value="kayu">Kayu</option>
-                                    <option value="cat">Cat</option>
-                                    <option value="paku">Paku</option>
-                                    <option value="keramik">Keramik</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="form-label">Nama Material</label>
+                            <input type="text" class="form-control" placeholder="Contoh: Semen Portland, Besi Beton">
                         </div>
-
-                        <div class="form-row d-flex gap-4 mb-4">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="harga" class="form-label">
-                                    <i class="fas fa-money-bill-wave"></i> Harga Satuan (Rp)
-                                </label>
-                                <input type="number" id="harga" class="form-control" placeholder="Contoh: 65000">
-                                <small class="text-muted mt-2 d-block">Contoh: 65000</small>
-                            </div>
-
-                            <div class="form-group" style="flex: 1;">
-                                <label for="satuan" class="form-label">
-                                    <i class="fas fa-balance-scale"></i> Satuan
-                                </label>
-                                <select id="satuan" class="form-control">
-                                    <option value="">Pilih Satuan</option>
-                                    <option value="sak">Sak (40kg)</option>
-                                    <option value="kg">Kg</option>
-                                    <option value="batang">Batang</option>
-                                    <option value="meter">Meter</option>
-                                    <option value="lembar">Lembar</option>
-                                    <option value="liter">Liter</option>
-                                </select>
-                            </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-control">
+                                <option value="">Pilih Kategori</option>
+                                <option value="semen">Semen</option>
+                                <option value="besi">Besi</option>
+                                <option value="kayu">Kayu</option>
+                                <option value="cat">Cat</option>
+                            </select>
                         </div>
-
-                        <div class="form-row d-flex gap-4 mb-4">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="provinsi" class="form-label">
-                                    <i class="fas fa-map"></i> Provinsi
-                                </label>
-                                <select id="provinsi" class="form-control">
-                                    <option value="">Pilih Provinsi</option>
-                                    <option value="jabar">Jawa Barat</option>
-                                    <option value="jateng">Jawa Tengah</option>
-                                    <option value="jatim">Jawa Timur</option>
-                                    <option value="bali">Bali</option>
-                                    <option value="sumut">Sumatera Utara</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group" style="flex: 1;">
-                                <label for="kabupaten" class="form-label">
-                                    <i class="fas fa-city"></i> Kabupaten/Kota
-                                </label>
-                                <select id="kabupaten" class="form-control" disabled>
-                                    <option value="">Pilih provinsi terlebih dahulu</option>
-                                </select>
-                            </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Harga Satuan (Rp)</label>
+                            <input type="number" class="form-control" placeholder="Contoh: 65000">
                         </div>
-
-                        <div class="form-row d-flex gap-4 mb-4">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="tanggal" class="form-label">
-                                    <i class="fas fa-calendar-alt"></i> Tanggal Harga Berlaku
-                                </label>
-                                <input type="date" id="tanggal" class="form-control">
-                                <small class="text-muted mt-2 d-block">Format: dd/mm/yyyy</small>
-                            </div>
-
-                            <div class="form-group" style="flex: 1;">
-                                <label for="sumber" class="form-label">
-                                    <i class="fas fa-store"></i> Sumber Harga (Opsional)
-                                </label>
-                                <input type="text" id="sumber" class="form-control" placeholder="Contoh: Pasar Induk, Toko B">
-                            </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Satuan</label>
+                            <select class="form-control">
+                                <option value="">Pilih Satuan</option>
+                                <option value="sak">Sak (40kg)</option>
+                                <option value="kg">Kg</option>
+                                <option value="batang">Batang</option>
+                                <option value="meter">Meter</option>
+                            </select>
                         </div>
-
+                        
+                        <div class="form-group">
+                            <label class="form-label">Provinsi</label>
+                            <select class="form-control" id="provinsi">
+                                <option value="">Pilih Provinsi</option>
+                                <option value="jabar">Jawa Barat</option>
+                                <option value="jateng">Jawa Tengah</option>
+                                <option value="jatim">Jawa Timur</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Kabupaten/Kota</label>
+                            <select class="form-control" id="kabupaten" disabled>
+                                <option value="">Pilih provinsi terlebih dahulu</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Tanggal Harga Berlaku</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Sumber Harga (Opsional)</label>
+                            <input type="text" class="form-control" placeholder="Contoh: Pasar Induk, Toko B">
+                        </div>
+                        
                         <div class="btn-group">
-                            <button type="button" id="btnReset" class="btn btn-outline">
-                                <i class="fas fa-redo"></i> Reset
-                            </button>
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save"></i> SIMPAN
-                            </button>
+                            <button type="button" class="btn btn-secondary" id="btnReset">Reset</button>
+                            <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </div>
                     </form>
                 </div>
             </div>
 
             <!-- RIGHT COLUMN: SEARCH -->
-            <div>
+            <div class="right-column">
                 <div class="search-section">
-                    <h2 class="card-title">
-                        <i class="fas fa-search"></i>
-                        Cari Material
-                    </h2>
+                    <h3 class="card-title">Cari Material</h3>
                     
-                    <div class="search-step">
-                        <div class="d-flex align-center mb-3">
-                            <span class="step-number">1</span>
-                            <strong>Pilih Provinsi</strong>
-                        </div>
-                        <select id="searchProvinsi" class="form-control">
+                    <div class="form-group">
+                        <label class="form-label">Pilih Provinsi</label>
+                        <select class="form-control" id="searchProvinsi">
                             <option value="">Pilih Provinsi</option>
                             <option value="jabar">Jawa Barat</option>
                             <option value="jateng">Jawa Tengah</option>
                             <option value="jatim">Jawa Timur</option>
-                            <option value="bali">Bali</option>
-                            <option value="sumut">Sumatera Utara</option>
                         </select>
                     </div>
-
-                    <div class="search-step">
-                        <div class="d-flex align-center mb-3">
-                            <span class="step-number">2</span>
-                            <strong>Pilih Kota/Kabupaten</strong>
-                        </div>
-                        <select id="searchKota" class="form-control" disabled>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Pilih Kota/Kabupaten</label>
+                        <select class="form-control" id="searchKota" disabled>
                             <option value="">Pilih provinsi terlebih dahulu</option>
                         </select>
                     </div>
-
-                    <div class="search-step">
-                        <div class="d-flex align-center mb-3">
-                            <span class="step-number">3</span>
-                            <strong>Cari Material</strong>
-                        </div>
-                        <input type="text" id="searchKeyword" class="form-control" placeholder="Nama material atau kategori..." disabled>
-                        <small class="text-muted mt-2 d-block">Masukkan kata kunci pencarian</small>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Cari Material/Kategori</label>
+                        <input type="text" class="form-control" id="searchKeyword" placeholder="Kata kunci..." disabled>
                     </div>
-
-                    <button id="btnSearch" class="btn btn-primary btn-block mt-4" disabled>
-                        <i class="fas fa-search"></i> CARI MATERIAL
-                    </button>
-
-                    <div class="mt-5 text-muted">
-                        <p class="mb-3"><strong><i class="fas fa-lightbulb"></i> Tips pencarian:</strong></p>
-                        <ul style="padding-left: 20px;">
-                            <li>Gunakan kata kunci spesifik</li>
-                            <li>Cari berdasarkan provinsi/kota</li>
-                            <li>Filter berdasarkan kategori</li>
-                            <li>Urutkan berdasarkan harga terbaru</li>
+                    
+                    <button class="btn btn-primary" id="btnSearch" disabled>CARI</button>
+                    
+                    <div class="mt-3">
+                        <p><strong>Tips pencarian:</strong></p>
+                        <ul style="padding-left: 20px; margin-top: 10px;">
+                            <li>Pilih provinsi terlebih dahulu</li>
+                            <li>Pilih kota/kabupaten</li>
+                            <li>Masukkan kata kunci (opsional)</li>
                         </ul>
                     </div>
                 </div>
@@ -891,24 +406,19 @@
         </div>
 
         <div class="footer">
-            <p>&copy; 2023 MATERIAL ALERT - Sistem Pemantauan Harga Material Bangunan Terintegrasi</p>
-            <p class="text-muted mt-2">Versi 2.0 • Kompatibel dengan semua platform</p>
+            <p>&copy; 2023 MATERIAL ALERT - Sistem Pemantauan Harga Material Bangunan</p>
         </div>
     </div>
 
     <!-- MODAL HASIL PENCARIAN -->
     <div id="searchModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <i class="fas fa-search"></i> Hasil Pencarian Material
-                </div>
-                <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="card-title">Hasil Pencarian</h2>
+            <div id="searchResults">
+                <!-- Hasil pencarian akan ditampilkan di sini -->
             </div>
-            <div class="modal-body">
-                <div id="searchResults">
-                    <!-- Hasil pencarian akan ditampilkan di sini -->
-                </div>
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary" id="closeModal">Tutup</button>
             </div>
         </div>
     </div>
@@ -919,29 +429,174 @@
             { id: 1, name: "Semen Portland Tipe I", category: "Semen", unit: "Sak (40kg)", province: "Jawa Barat", city: "Bandung", price: 65000 },
             { id: 2, name: "Besi Beton 10mm", category: "Besi", unit: "Batang (12m)", province: "Jawa Tengah", city: "Semarang", price: 120000 },
             { id: 3, name: "Cat Tembok Vinilex", category: "Cat", unit: "Kaleng (5L)", province: "Jawa Timur", city: "Surabaya", price: 85000 },
-            { id: 4, name: "Paku Beton 7cm", category: "Paku", unit: "Kg", province: "DI Yogyakarta", city: "Yogyakarta", price: 28500 },
-            { id: 5, name: "Triplek 9mm", category: "Kayu", unit: "Lembar", province: "Jawa Barat", city: "Bogor", price: 95000 },
-            { id: 6, name: "Semen Gresik Tipe II", category: "Semen", unit: "Sak (40kg)", province: "Jawa Timur", city: "Surabaya", price: 68000 },
-            { id: 7, name: "Besi Hollow 4x4", category: "Besi", unit: "Batang (6m)", province: "Jawa Barat", city: "Bandung", price: 75000 },
-            { id: 8, name: "Cat Besi Metalik", category: "Cat", unit: "Kaleng (1L)", province: "Jawa Tengah", city: "Semarang", price: 45000 },
-            { id: 9, name: "Bata Merah Press", category: "Bata", unit: "Buah", province: "Jawa Barat", city: "Cianjur", price: 1200 },
-            { id: 10, name: "Keramik 40x40", category: "Keramik", unit: "Meter Persegi (m²)", province: "Jawa Timur", city: "Malang", price: 95000 },
+            { id: 4, name: "Paku Beton 7cm", category: "Paku", unit: "Kg", province: "Jawa Barat", city: "Bandung", price: 28500 },
+            { id: 5, name: "Triplek 9mm", category: "Kayu", unit: "Lembar", province: "Jawa Timur", city: "Surabaya", price: 95000 },
         ];
 
         // Data kota berdasarkan provinsi
         const cityData = {
-            "jabar": ["Bandung", "Bogor", "Cianjur", "Garut", "Tasikmalaya", "Cimahi", "Depok", "Bekasi"],
-            "jateng": ["Semarang", "Solo", "Magelang", "Pekalongan", "Tegal", "Purwokerto", "Salatiga"],
-            "jatim": ["Surabaya", "Malang", "Kediri", "Madiun", "Jember", "Banyuwangi", "Blitar"],
-            "bali": ["Denpasar", "Badung", "Gianyar", "Tabanan", "Klungkung", "Bangli"],
-            "sumut": ["Medan", "Binjai", "Pematang Siantar", "Tebing Tinggi", "Tanjung Balai"],
-            "sulsel": ["Makassar", "Parepare", "Palopo", "Bone", "Bulukumba"],
-            "banten": ["Serang", "Tangerang", "Cilegon", "Lebak", "Pandeglang"]
+            "jabar": ["Bandung", "Bogor", "Cianjur", "Garut", "Bekasi"],
+            "jateng": ["Semarang", "Solo", "Magelang", "Pekalongan", "Tegal"],
+            "jatim": ["Surabaya", "Malang", "Kediri", "Madiun", "Jember"]
         };
 
-        // Platform detection
-        function detectPlatform() {
-            const ua = navigator.userAgent;
-            let platform = 'desktop';
+        // Form input material - provinsi change
+        document.getElementById('provinsi').addEventListener('change', function() {
+            const kabupatenSelect = document.getElementById('kabupaten');
+            if (this.value) {
+                kabupatenSelect.disabled = false;
+                kabupatenSelect.innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
+                cityData[this.value].forEach(city => {
+                    kabupatenSelect.innerHTML += `<option value="${city}">${city}</option>`;
+                });
+            } else {
+                kabupatenSelect.disabled = true;
+                kabupatenSelect.innerHTML = '<option value="">Pilih provinsi terlebih dahulu</option>';
+            }
+        });
+
+        // Reset form
+        document.getElementById('btnReset').addEventListener('click', function() {
+            document.getElementById('materialForm').reset();
+            document.getElementById('kabupaten').disabled = true;
+            document.getElementById('kabupaten').innerHTML = '<option value="">Pilih provinsi terlebih dahulu</option>';
+        });
+
+        // Form submission
+        document.getElementById('materialForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Data material berhasil disimpan!');
+            this.reset();
+            document.getElementById('kabupaten').disabled = true;
+            document.getElementById('kabupaten').innerHTML = '<option value="">Pilih provinsi terlebih dahulu</option>';
+        });
+
+        // PENCARIAN MATERIAL
+        // Enable kota dropdown ketika provinsi dipilih
+        document.getElementById('searchProvinsi').addEventListener('change', function() {
+            const searchKota = document.getElementById('searchKota');
+            const searchKeyword = document.getElementById('searchKeyword');
+            const btnSearch = document.getElementById('btnSearch');
             
-            if (/iPhone|iPad|iPod/.
+            if (this.value) {
+                searchKota.disabled = false;
+                searchKota.innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
+                cityData[this.value].forEach(city => {
+                    searchKota.innerHTML += `<option value="${city}">${city}</option>`;
+                });
+                
+                searchKeyword.disabled = true;
+                btnSearch.disabled = true;
+            } else {
+                searchKota.disabled = true;
+                searchKota.innerHTML = '<option value="">Pilih provinsi terlebih dahulu</option>';
+                searchKeyword.disabled = true;
+                btnSearch.disabled = true;
+            }
+        });
+
+        // Enable keyword input ketika kota dipilih
+        document.getElementById('searchKota').addEventListener('change', function() {
+            const searchKeyword = document.getElementById('searchKeyword');
+            const btnSearch = document.getElementById('btnSearch');
+            
+            if (this.value) {
+                searchKeyword.disabled = false;
+                btnSearch.disabled = false;
+            } else {
+                searchKeyword.disabled = true;
+                btnSearch.disabled = true;
+            }
+        });
+
+        // Fungsi pencarian
+        document.getElementById('btnSearch').addEventListener('click', function() {
+            const provinsi = document.getElementById('searchProvinsi').value;
+            const kota = document.getElementById('searchKota').value;
+            const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+            
+            if (!provinsi || !kota) {
+                alert('Harap pilih provinsi dan kota terlebih dahulu!');
+                return;
+            }
+            
+            // Filter data
+            let results = materialData.filter(item => 
+                item.city === kota
+            );
+            
+            if (keyword) {
+                results = results.filter(item => 
+                    item.name.toLowerCase().includes(keyword) || 
+                    item.category.toLowerCase().includes(keyword)
+                );
+            }
+            
+            // Tampilkan hasil di modal
+            displaySearchResults(results, kota, keyword);
+            document.getElementById('searchModal').style.display = 'block';
+        });
+
+        // Fungsi menampilkan hasil pencarian
+        function displaySearchResults(results, kota, keyword) {
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center">
+                        <p><strong>Tidak ditemukan material yang sesuai</strong></p>
+                        <p>Pencarian di ${kota}${keyword ? ` dengan kata kunci "${keyword}"` : ''} tidak menghasilkan hasil.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <p>Ditemukan ${results.length} material di ${kota}${keyword ? ` dengan kata kunci "${keyword}"` : ''}:</p>
+                <table class="material-table mt-3">
+                    <thead>
+                        <tr>
+                            <th>Nama Material</th>
+                            <th>Kategori</th>
+                            <th>Satuan</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            results.forEach(item => {
+                html += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.unit}</td>
+                        <td class="text-right">Rp ${item.price.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            resultsContainer.innerHTML = html;
+        }
+
+        // Tutup modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('searchModal').style.display = 'none';
+        });
+
+        // Tutup modal jika klik di luar
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('searchModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Inisialisasi saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard MATERIAL ALERT siap digunakan!');
+        });
+    </script>
+</body>
+</html>
